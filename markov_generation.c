@@ -107,5 +107,6 @@ void generateText(char* text, struct MarkovChain m_chain){
         strncpy(temp_ngram, result + strlen(result) - ORDER, ORDER); //changing the ngram to the last n characters of the result
         temp_ngram[ORDER] = '\0'; //ensuring that the ngram is null-terminated
     }
-    printf("Result: %s.\n", result);
+    printf("\n------------NEW TEXT------------\n");
+    printf("%s.\n", result);
 }
