@@ -8,31 +8,29 @@
 char fileName[100] = "text.txt";
 
 int main(){
-
-    FILE *file = fopen(fileName, "r");
     struct MarkovChain m_chain;
     bool display_menu = 1;
     srand((unsigned int)time(NULL)); //did not work before adding unsigned int
-    char* text = ReadFile(file);
+    char* text = ReadFile(fileName);
 
     while(display_menu)
     {
-        //fflush(stdin);
         displayMenu();
-        int choice;
-        scanf("%d", &choice);
-        switch(choice)
+        char choice[2];
+        fgets(choice, 2, stdin);
+        fflush(stdin);
+        switch(choice[0])
         {
-            case 1:
+            case '1':
                 addSampleText(fileName, text);
                 break;
-            case 2:
+            case '2':
                 displaySampleText(text);
                 break;
-            case 3:
+            case '3':
                 displayGeneratedText(text, &m_chain);
                 break;
-            case 0:
+            case '0':
                 display_menu = 0;
                 break;  
             default:
@@ -44,6 +42,5 @@ int main(){
 
     // free and close everything
     free(text);
-    fclose(file);
     return 0;
 }

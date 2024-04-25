@@ -2,12 +2,11 @@
 #include <string.h>
 #include "functions.h"
 
+// Moves non-null strings to the front of the array and sets the remaining strings to empty
 void removeNulls(char ngram_array[][100], int array_length) {
-    int index = 0; // Initialize the index for non-null characters
+    int index = 0;
 
-    // Traverse the array of strings
     for (int i = 0; i < array_length; i++) {
-        // If the current string is not empty
         if (ngram_array[i][0] != '\0') {
             // Move the non-null string to the front of the array
             strcpy(ngram_array[index++], ngram_array[i]);
@@ -20,10 +19,11 @@ void removeNulls(char ngram_array[][100], int array_length) {
     }
 }
 
+// Counts the length of an array without nulls
 int getTrueArrayLength(char ngram_array[][100], int array_length) {
     int count = 0;
 
-    // Count non-empty strings in the array
+
     for (int i = 0; i < array_length; i++) {
         if (ngram_array[i][0] != '\0') {
             count++;
@@ -33,6 +33,7 @@ int getTrueArrayLength(char ngram_array[][100], int array_length) {
     return count;
 }
 
+// Returns the index of a given ngram in the ngram array
 int getIndex(char ngram_array[][100], char ngram[ORDER+1], int array_length) {
     for (int i = 0; i < array_length; i++) {
         if (strcmp(ngram_array[i], ngram) == 0) {
@@ -43,6 +44,7 @@ int getIndex(char ngram_array[][100], char ngram[ORDER+1], int array_length) {
     return -1;
 }
 
+// Returns the number of non-null characters in a string array at a given index
 int getNonNullCount(char array[][100], int outer_length, int index) {
     int count = 0;
 
@@ -60,6 +62,7 @@ int getNonNullCount(char array[][100], int outer_length, int index) {
     return count;
 }
 
+// Writes content to a file
 void writeToFile(const char *filename, char *content){
     FILE *file = fopen(filename, "w");
     if (file != NULL) {
@@ -68,4 +71,5 @@ void writeToFile(const char *filename, char *content){
     } else {
         printf("Failed to open the file.\n");
     }
+    fclose(file);
 }

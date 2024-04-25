@@ -17,7 +17,7 @@ int getNonNullCount(char array[][100], int outer_length, int index);
 void writeToFile(const char *filename, char *content);
 
 //functions that deal with the markov chain generation
-char* ReadFile(FILE* file);
+char* ReadFile(char fileName[100]);
 void changingTextToNGrams(char* text, struct MarkovChain* m_chain, int lenght);
 void addingNextChar(char* text, struct MarkovChain* m_chain, int lenght);
 void generateText(char* text, struct MarkovChain m_chain);

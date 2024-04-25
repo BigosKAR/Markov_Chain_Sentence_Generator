@@ -4,6 +4,7 @@
 #include <time.h>
 #include "functions.h"
 
+// Displays the menu options
 void displayMenu()
 {
     printf("--------------------------------\n");
@@ -14,12 +15,20 @@ void displayMenu()
     printf("--------------------------------\n");
 }
 
+// Adds sample text to the file and updates the text variable
 void addSampleText(char fileName[100], char* text)
 {
-    char* new_text = (char*)malloc(1000*sizeof(char));
-    text = realloc(text, 1000*sizeof(char));
+    FILE *file = fopen(fileName, "w");
+    if(file == NULL){
+        //perror("Error opening file");
+        exit(-1);
+    } else {
+        //printf("File opened succesfully for writing \n");
+    }
+    char* new_text = (char*)malloc(1001*sizeof(char));
+    text = realloc(text, 1001*sizeof(char));
     printf("Enter the sample text [Max 1000 characters]: \n");
-    scanf(" %[^\n]", new_text); 
+    fgets(new_text, 1001, stdin); // Reads up to 999 characters and adds a null terminator
     fflush(stdin);
     size_t new_text_length = strlen(new_text);
     new_text[new_text_length] = '\0';
@@ -29,6 +38,7 @@ void addSampleText(char fileName[100], char* text)
     free(new_text);
 }
 
+// Displays the current sample text
 void displaySampleText(char* text)
 {
     printf("--------------------------------\n");
@@ -36,9 +46,9 @@ void displaySampleText(char* text)
     printf("--------------------------------\n");
 }
 
+// Creates and displays the generated text
 void displayGeneratedText(char* text, struct MarkovChain *m_chain)
 {
-    printf("The current ngram order is: %d\n", ORDER);
     changingTextToNGrams(text, m_chain, (int)(strlen(text)));
     addingNextChar(text, m_chain, (int)(strlen(text)));
     generateText(text, *m_chain);
