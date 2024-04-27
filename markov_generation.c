@@ -8,10 +8,10 @@
 char* ReadFile(char fileName[100]){
     FILE *file = fopen(fileName, "r");
     if(file == NULL){
-        perror("Error opening file");
+        if(VERBOSE)perror("Error opening file");
         exit(-1);
     } else {
-        printf("File opened succesfully for reading \n");
+        if(VERBOSE)printf("File opened succesfully for reading \n");
     }
 
     char* f_text = (char*)malloc((1001) * sizeof(char)); //start with initial max size of 1000 characters
@@ -90,7 +90,7 @@ void generateText(char* text, struct MarkovChain m_chain){
         int random_number_chars;
         int j = getIndex(m_chain.ngrams, temp_ngram, 1000);
         if(j == -1){
-            printf("Ngram not found\n");
+            if(VERBOSE)printf("Ngram not found\n");
             break;
         }
         int nonNullCount = getNonNullCount(m_chain.next, 1000, j);

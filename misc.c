@@ -50,7 +50,7 @@ int getNonNullCount(char array[][100], int outer_length, int index) {
 
     // Ensure the index is within the bounds of the outer array
     if (index < 0 || index >= outer_length) {
-        printf("Index out of bounds\n");
+        if(VERBOSE)printf("Index out of bounds\n");
         return -1;
     }
 
@@ -59,5 +59,23 @@ int getNonNullCount(char array[][100], int outer_length, int index) {
         if(array[index][i] != '\0')count++;
     }
 
+    return count;
+}
+
+int countFileCharacters(char fileName[100]){
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        if(VERBOSE)printf("Error opening file\n");
+        return -1;
+    }
+
+    int count = 0;
+    char c;
+
+    while ((c = fgetc(file)) != EOF) {
+        count++;
+    }
+
+    fclose(file);
     return count;
 }

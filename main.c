@@ -5,22 +5,46 @@
 #include <stdbool.h>
 #include "functions.h"
 
+char default_fileName[] = "./sample_texts/default.txt";
+
 int main(int argc, char *argv[]){
     
     char* text;
 
     if (argc >= 2) {
-        text = ReadFile(argv[1]);
+        if(countFileCharacters(argv[1]) > 1000){
+            printf("The text file is too long to generate text\n");
+            return -1;
+        }
+        else if(countFileCharacters(argv[1]) < ORDER){
+            printf("The text file is too short to generate text\n");
+            return -1;
+        }
+        else{
+            if(VERBOSE)("The text file is of the correct length\n");
+            text = ReadFile(argv[1]);
+        }
         printf("Loaded sample text: %s\n", argv[1]);
     }
     else if (argc == 1)
     {
         // Default case if no file is provided
-        text = ReadFile("./sample_texts/default.txt");
-        printf("Loaded sample text: default.txt\n");
+        if(countFileCharacters(default_fileName) > 1000){
+            printf("The text file is too long to generate text\n");
+            return -1;
+        }
+        else if(countFileCharacters(default_fileName) < ORDER){
+            printf("The text file is too short to generate text\n");
+            return -1;
+        }
+        else{
+            if(VERBOSE)printf("The text file is of the correct length\n");
+            text = ReadFile("./sample_texts/default.txt");
+        }
+        printf("Loaded sample text: %s\n", default_fileName);
     }
     else{
-        printf("Invalid number of arguments\n");
+        if(VERBOSE)printf("Invalid number of arguments\n");
         return -1;
     }
 
