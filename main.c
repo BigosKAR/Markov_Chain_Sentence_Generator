@@ -5,13 +5,28 @@
 #include <stdbool.h>
 #include "functions.h"
 
-char fileName[100] = "text.txt";
+int main(int argc, char *argv[]){
+    
+    char* text;
 
-int main(){
+    if (argc >= 2) {
+        text = ReadFile(argv[1]);
+        printf("Loaded sample text: %s\n", argv[1]);
+    }
+    else if (argc == 1)
+    {
+        // Default case if no file is provided
+        text = ReadFile("./sample_texts/default.txt");
+        printf("Loaded sample text: default.txt\n");
+    }
+    else{
+        printf("Invalid number of arguments\n");
+        return -1;
+    }
+
     struct MarkovChain m_chain;
     bool display_menu = 1;
     srand((unsigned int)time(NULL)); //did not work before adding unsigned int
-    char* text = ReadFile(fileName);
 
     while(display_menu)
     {
@@ -22,12 +37,9 @@ int main(){
         switch(choice[0])
         {
             case '1':
-                addSampleText(fileName, text);
-                break;
-            case '2':
                 displaySampleText(text);
                 break;
-            case '3':
+            case '2':
                 displayGeneratedText(text, &m_chain);
                 break;
             case '0':

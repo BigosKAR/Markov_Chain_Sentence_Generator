@@ -61,15 +61,3 @@ int getNonNullCount(char array[][100], int outer_length, int index) {
 
     return count;
 }
-
-// Writes content to a file
-void writeToFile(const char *filename, char *content){
-    FILE *file = fopen(filename, "w");
-    if (file != NULL) {
-        fputs(content, file);
-        fclose(file);
-    } else {
-        printf("Failed to open the file.\n");
-    }
-    fclose(file);
-}
