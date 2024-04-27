@@ -38,7 +38,7 @@ To run the program, compile it and then run the resulting executable from the co
 
 ```bash
 gcc -o executable *.c
-executable ./sample_texts/sample1.txt
+./executable ./sample_texts/sample1.txt
 ```
 
 Otherwise the program is going to use the default file (./sample_texts/default.txt). Users can add their own sample text files. They need to ensure that their files fulfill the following requirements:
