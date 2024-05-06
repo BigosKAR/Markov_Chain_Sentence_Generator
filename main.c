@@ -12,33 +12,39 @@ int main(int argc, char *argv[]){
     char* text;
 
     if (argc >= 2) {
-        if(countFileCharacters(argv[1]) > 1000){
+        if(strstr(argv[1], ".txt") != NULL){
+            if(countFileCharacters(argv[1]) > 1000){
             printf("The text file is too long to generate text\n");
             return -1;
-        }
-        else if(countFileCharacters(argv[1]) < ORDER){
+            }
+            else if(countFileCharacters(argv[1]) < ORDER){
             printf("The text file is too short to generate text\n");
             return -1;
+            }
+            else{
+                if(VERBOSE)("The text file is of the correct length\n");
+                text = ReadFile(argv[1]);
+                printf("Loaded sample text: %s\n", argv[1]);
+            }
         }
         else{
-            if(VERBOSE)("The text file is of the correct length\n");
-            text = ReadFile(argv[1]);
+            printf("Invalid file type\n");
+            return -1;
         }
-        printf("Loaded sample text: %s\n", argv[1]);
     }
     else if (argc == 1)
     {
         // Default case if no file is provided
         if(countFileCharacters(default_fileName) > 1000){
-            printf("The text file is too long to generate text\n");
+            printf("The default text file is too long!\n");
             return -1;
         }
         else if(countFileCharacters(default_fileName) < ORDER){
-            printf("The text file is too short to generate text\n");
+            printf("The default text file is too short!\n");
             return -1;
         }
         else{
-            if(VERBOSE)printf("The text file is of the correct length\n");
+            if(VERBOSE)printf("The default text files is of the correct length\n");
             text = ReadFile("./sample_texts/default.txt");
         }
         printf("Loaded sample text: %s\n", default_fileName);
